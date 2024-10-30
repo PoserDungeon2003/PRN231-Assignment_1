@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using SilverPE_Repository.Interfaces;
 
@@ -20,6 +21,7 @@ namespace SilverPE_API.Controllers
         // GET: api/<CategoryController>
         [EnableQuery]
         [HttpGet]
+        [Authorize]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };

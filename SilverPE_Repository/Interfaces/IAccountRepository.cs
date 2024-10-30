@@ -1,5 +1,6 @@
 ﻿using SilverPE_BOs.Models;
 using SilverPE_Repository.Request;
+using SilverPE_Repository.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace SilverPE_Repository.Interfaces
 {
     public interface IAccountRepository
     {
-        public Task<BranchAccount> GetBranchAccount(AccountLoginRequest loginRequest);
+        public Task<AccountLoginResponse> GetBranchAccount(AccountLoginRequest loginRequest);
     }
 }

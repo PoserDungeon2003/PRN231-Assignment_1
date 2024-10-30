@@ -10,8 +10,4 @@
     <ProjectReference Include="..\SilverPE_DAO\SilverPE_DAO.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Response\" />
-  </ItemGroup>
-
 </Project>

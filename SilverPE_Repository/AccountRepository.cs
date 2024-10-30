@@ -2,6 +2,7 @@
 using SilverPE_DAO;
 using SilverPE_Repository.Interfaces;
 using SilverPE_Repository.Request;
+using SilverPE_Repository.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,28 @@ namespace SilverPE_Repository
 {
     public class AccountRepository : IAccountRepository
     {
-        public async Task<BranchAccount> GetBranchAccount(AccountLoginRequest loginRequest)
-            => await AccountDAO.Instance.GetBranchAccount(loginRequest.Email, loginRequest.Password);
+        private readonly ITokenRepository _tokenRepository;
+        public AccountRepository(ITokenRepository tokenRepository)
+        {
+            _tokenRepository = tokenRepository;
+        }
+        public async Task<AccountLoginResponse> GetBranchAccount(AccountLoginRequest loginRequest)
+        {
+            var branchAccount = await AccountDAO.Instance.GetBranchAccount(loginRequest.Email, loginRequest.Password);
+
+            if (branchAccount != null)
+            {
+                return new AccountLoginResponse
+                {
+                    Email = branchAccount.EmailAddress,
+                    FullName = branchAccount.FullName,
+                    Id = branchAccount.AccountId,
+                    Role = branchAccount.Role,
+                    Token = _tokenRepository.GenerateToken(branchAccount)
+                };
+            }
+
+            return null;
+        }
     }
 }
