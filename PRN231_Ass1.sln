@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilverPE_BOs", "SilverPE_BOs\SilverPE_BOs.csproj", "{DC4ED529-1185-4204-8A37-9C3359B3D5D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilverPE_DAO", "SilverPE_DAO\SilverPE_DAO.csproj", "{D3FF8D5E-3A94-431B-AB80-A39BD253ECCF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilverPE_Repository", "SilverPE_Repository\SilverPE_Repository.csproj", "{7B7A7E26-511C-4A05-8664-27D9B13F29EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilverPE_API", "SilverPE_API\SilverPE_API.csproj", "{EEA990C7-7F93-4BD4-80EC-42907F9A2386}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC4ED529-1185-4204-8A37-9C3359B3D5D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC4ED529-1185-4204-8A37-9C3359B3D5D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4ED529-1185-4204-8A37-9C3359B3D5D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC4ED529-1185-4204-8A37-9C3359B3D5D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3FF8D5E-3A94-431B-AB80-A39BD253ECCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3FF8D5E-3A94-431B-AB80-A39BD253ECCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3FF8D5E-3A94-431B-AB80-A39BD253ECCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3FF8D5E-3A94-431B-AB80-A39BD253ECCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B7A7E26-511C-4A05-8664-27D9B13F29EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B7A7E26-511C-4A05-8664-27D9B13F29EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B7A7E26-511C-4A05-8664-27D9B13F29EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B7A7E26-511C-4A05-8664-27D9B13F29EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEA990C7-7F93-4BD4-80EC-42907F9A2386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA990C7-7F93-4BD4-80EC-42907F9A2386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA990C7-7F93-4BD4-80EC-42907F9A2386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA990C7-7F93-4BD4-80EC-42907F9A2386}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2A2816C-CC1C-439B-9B02-D12250CF8E4D}
+	EndGlobalSection
+EndGlobal
