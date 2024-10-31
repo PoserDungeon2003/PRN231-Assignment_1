@@ -1,4 +1,6 @@
 ﻿using SilverPE_BOs.Models;
+using SilverPE_DAO;
+using SilverPE_Repository.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,8 @@ namespace SilverPE_Repository.Interfaces
 {
     public interface IJewelryRepository
     {
-        public Task<bool> AddJewelry(SilverJewelry silverJewelry);
+        public Task<List<SilverJewelryDTO>> GetJewelries();
+        public Task<bool> AddJewelry(CreateSilverJewerlryRequest silverJewelry);
         public Task<bool> UpdateJewelry(SilverJewelry silverJewelry);
         public Task<bool> DeleteJewelry(string id);
     }

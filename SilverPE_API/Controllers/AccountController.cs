@@ -18,7 +18,7 @@ namespace SilverPE_API.Controllers
             _accountRepository = accountRepository;
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] AccountLoginRequest loginRequest)
         {
             var response = await _accountRepository.GetBranchAccount(loginRequest);

@@ -21,10 +21,11 @@ namespace SilverPE_API.Controllers
         // GET: api/<CategoryController>
         [EnableQuery]
         [HttpGet]
-        [Authorize]
-        public IEnumerable<string> Get()
+        //[Authorize]
+        public async Task<IActionResult> GetAllCategories()
         {
-            return new string[] { "value1", "value2" };
+            var response = await _categoryRepository.GetCategories();
+            return Ok(response);
         }
 
         // GET api/<CategoryController>/5

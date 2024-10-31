@@ -8,6 +8,18 @@ using System.Threading.Tasks;
 
 namespace SilverPE_DAO
 {
+    public class SilverJewelryDTO
+    {
+        public string SilverJewelryId { get; set; } = null!;
+        public string SilverJewelryName { get; set; } = null!;
+        public string? SilverJewelryDescription { get; set; }
+        public decimal? MetalWeight { get; set; }
+        public decimal? Price { get; set; }
+        public int? ProductionYear { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string? CategoryId { get; set; }
+    }
+
     public class JewelryDAO
     {
         private SilverJewelry2023DbContext _context;
@@ -30,6 +42,19 @@ namespace SilverPE_DAO
         {
             _context = new SilverJewelry2023DbContext();
         }
+
+        public async Task<List<SilverJewelryDTO>> GetAllJewerlryAsync()
+            => await _context.SilverJewelries.Select(s => new SilverJewelryDTO
+            {
+                SilverJewelryId = s.SilverJewelryId,
+                SilverJewelryName = s.SilverJewelryName,
+                SilverJewelryDescription = s.SilverJewelryDescription,
+                MetalWeight = s.MetalWeight,
+                Price = s.Price,
+                ProductionYear = s.ProductionYear,
+                CreatedDate = s.CreatedDate,
+                CategoryId = s.CategoryId
+            }).ToListAsync();
 
         public async Task<bool> AddJewelry(SilverJewelry silverJewelry)
         {

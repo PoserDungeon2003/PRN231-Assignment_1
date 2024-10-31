@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using SilverPE_Repository.Interfaces;
+using SilverPE_Repository.Request;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,9 +21,10 @@ namespace SilverPE_API.Controllers
         // GET: api/<SilverJewelryController>
         [EnableQuery]
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAllJewerly()
         {
-            return Ok();
+            var response = await _jewelryRepository.GetJewelries();
+            return Ok(response);
         }
 
         // GET api/<SilverJewelryController>/5
@@ -34,8 +36,22 @@ namespace SilverPE_API.Controllers
 
         // POST api/<SilverJewelryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> CreateSilverJewerlry([FromBody] CreateSilverJewerlryRequest body)
         {
+            var response = await _jewelryRepository.AddJewelry(body);
+
+            if (response)
+            {
+                return Ok(new
+                {
+                    Success = response,
+                });
+            }
+            return BadRequest(new
+            {
+                Success = response,
+                Message = "Failed to add jewelry",
+            });
         }
 
         // PUT api/<SilverJewelryController>/5
