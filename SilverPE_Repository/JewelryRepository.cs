@@ -15,14 +15,14 @@ namespace SilverPE_Repository
         public async Task<bool> AddJewelry(CreateSilverJewerlryRequest silverJewelry)
             => await JewelryDAO.Instance.AddJewelry(new SilverJewelry
             {
-                CategoryId = silverJewelry.CategoryId,
+                CategoryId = silverJewelry.CategoryId.Trim(),
                 CreatedDate = DateTime.Now,
                 MetalWeight = silverJewelry.MetalWeight,
                 Price = silverJewelry.Price,
                 ProductionYear = silverJewelry.ProductionYear,
-                SilverJewelryDescription = silverJewelry.SilverJewelryDescription,
-                SilverJewelryId = silverJewelry.SilverJewelryId,
-                SilverJewelryName = silverJewelry.SilverJewelryName,
+                SilverJewelryDescription = silverJewelry.SilverJewelryDescription.Trim(),
+                SilverJewelryId = silverJewelry.SilverJewelryId.Trim(),
+                SilverJewelryName = silverJewelry.SilverJewelryName.Trim(),
             });
 
         public async Task<bool> DeleteJewelry(string id)
@@ -31,19 +31,22 @@ namespace SilverPE_Repository
         public async Task<List<SilverJewelryDTO>> GetJewelries()
             => await JewelryDAO.Instance.GetAllJewerlryAsync();
 
+        public async Task<SilverJewelry> GetSilverJewelryById(string id)
+            => await JewelryDAO.Instance.GetSilverJewerly(id.Trim());
+
         public Task<List<SilverJewelryDTO>> SearchByNameOrWeight(string searchValue)
             => JewelryDAO.Instance.SearchByNameOrWeight(searchValue);
 
         public async Task<bool> UpdateJewelry(string id, UpdateSilverJewerlyRequest silverJewelry)
             => await JewelryDAO.Instance.UpdateJewelry(new SilverJewelry
             {
-                CategoryId = silverJewelry.CategoryId,
+                CategoryId = silverJewelry.CategoryId.Trim(),
                 MetalWeight = silverJewelry.MetalWeight,
                 Price = silverJewelry.Price,
                 ProductionYear = silverJewelry.ProductionYear,
-                SilverJewelryDescription = silverJewelry.SilverJewelryDescription,
-                SilverJewelryId = id,
-                SilverJewelryName = silverJewelry.SilverJewelryName,
+                SilverJewelryDescription = silverJewelry.SilverJewelryDescription.Trim(),
+                SilverJewelryId = id.Trim(),
+                SilverJewelryName = silverJewelry.SilverJewelryName.Trim(),
                 CreatedDate = silverJewelry.CreatedDate,
             });
     }

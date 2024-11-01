@@ -16,5 +16,6 @@ namespace SilverPE_Repository.Interfaces
         public Task<bool> UpdateJewelry(string id, UpdateSilverJewerlyRequest silverJewelry);
         public Task<bool> DeleteJewelry(string id);
         public Task<List<SilverJewelryDTO>> SearchByNameOrWeight(string searchValue);
+        public Task<SilverJewelry> GetSilverJewelryById(string id);
     }
 }

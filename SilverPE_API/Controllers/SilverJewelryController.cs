@@ -62,6 +62,20 @@ namespace SilverPE_API.Controllers
             });
         }
 
+        [HttpGet("{id}")]
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> GetSilverJewerlyById(string id)
+        {
+            var response = await _jewelryRepository.GetSilverJewelryById(id);
+
+            if (response != null)
+            {
+                return Ok(response);
+            }
+
+            return BadRequest();
+        }
+
         [HttpPut("{id}")]
         [Authorize(Roles = "1")]
         public async Task<IActionResult> UpdateSilverJewerlyById(string id, [FromBody] UpdateSilverJewerlyRequest value)

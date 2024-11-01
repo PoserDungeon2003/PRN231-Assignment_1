@@ -44,7 +44,9 @@ namespace SilverPE_DAO
         }
 
         public async Task<List<SilverJewelryDTO>> GetAllJewerlryAsync()
-            => await _context.SilverJewelries.Select(s => new SilverJewelryDTO
+            => await _context.SilverJewelries
+            .Include(x => x.Category)
+            .Select(s => new SilverJewelryDTO
             {
                 SilverJewelryId = s.SilverJewelryId,
                 SilverJewelryName = s.SilverJewelryName,
@@ -53,7 +55,7 @@ namespace SilverPE_DAO
                 Price = s.Price,
                 ProductionYear = s.ProductionYear,
                 CreatedDate = s.CreatedDate,
-                CategoryId = s.CategoryId
+                CategoryId = s.CategoryId,
             }).ToListAsync();
 
         public async Task<bool> AddJewelry(SilverJewelry silverJewelry)
@@ -121,11 +123,12 @@ namespace SilverPE_DAO
             return result;
         }
 
-        private async Task<SilverJewelry> GetSilverJewerly(string jewelryId)
-            => await _context.SilverJewelries.FirstOrDefaultAsync(s => s.SilverJewelryId.Equals(jewelryId));
+        public async Task<SilverJewelry> GetSilverJewerly(string jewelryId)
+            => await _context.SilverJewelries
+                .FirstOrDefaultAsync(s => s.SilverJewelryId.Equals(jewelryId));
 
         public async Task<List<SilverJewelryDTO>> SearchByNameOrWeight(string searchValue)
-            => await _context.SilverJewelries.Where(s => s.SilverJewelryName.ToLower().Contains(searchValue.ToLower()) || s.MetalWeight.ToString().Contains(searchValue.ToLower())).Select(s => new SilverJewelryDTO
+            => await _context.SilverJewelries.Where(s => s.SilverJewelryName.ToLower().Contains(searchValue.ToLower().Trim()) || s.MetalWeight.ToString().Contains(searchValue.ToLower().Trim())).Select(s => new SilverJewelryDTO
             {
                 SilverJewelryId = s.SilverJewelryId,
                 SilverJewelryName = s.SilverJewelryName,
