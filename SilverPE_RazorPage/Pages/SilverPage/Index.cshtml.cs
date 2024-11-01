@@ -16,6 +16,8 @@ namespace SilverPE_RazorPage.Pages.SilverPage
         private readonly HttpClient _httpClient;
 
         public List<SilverJewelry> SilverJewelry { get; set; } = new List<SilverJewelry>();
+        [BindProperty(SupportsGet = true)]
+        public string? Search { get; set; }
 
         public IndexModel(HttpClient httpClient)
         {
@@ -25,9 +27,39 @@ namespace SilverPE_RazorPage.Pages.SilverPage
         public async Task<IActionResult> OnGetAsync()
         {
             var token = HttpContext.Session.GetString("token");
+
             if (string.IsNullOrEmpty(token))
             {
                 return RedirectToPage("/logout/index");
+            }
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                var searchResponse = await _httpClient.GetAsync($"{Const.apiUrl}/api/SilverJewelry/search?searchValue={Search}");
+
+                if (searchResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return RedirectToPage("/logout/index");
+                }
+                else if (searchResponse.IsSuccessStatusCode)
+                {
+                    var jsonData = await searchResponse.Content.ReadAsStringAsync();
+                    SilverJewelry = JsonSerializer.Deserialize<List<SilverJewelry>>(jsonData, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    }) ?? new List<SilverJewelry>();
+                }
+                else if (searchResponse.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                {
+                    ModelState.AddModelError(string.Empty, "You are not allowed to access this function!");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, $"Error: {searchResponse.ReasonPhrase}");
+                }
+                return Page();
             }
 
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
