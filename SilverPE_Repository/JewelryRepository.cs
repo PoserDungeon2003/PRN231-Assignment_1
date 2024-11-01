@@ -31,7 +31,20 @@ namespace SilverPE_Repository
         public async Task<List<SilverJewelryDTO>> GetJewelries()
             => await JewelryDAO.Instance.GetAllJewerlryAsync();
 
-        public async Task<bool> UpdateJewelry(SilverJewelry silverJewelry)
-            => await JewelryDAO.Instance.UpdateJewelry(silverJewelry);
+        public Task<List<SilverJewelryDTO>> SearchByNameOrWeight(string searchValue)
+            => JewelryDAO.Instance.SearchByNameOrWeight(searchValue);
+
+        public async Task<bool> UpdateJewelry(string id, UpdateSilverJewerlyRequest silverJewelry)
+            => await JewelryDAO.Instance.UpdateJewelry(new SilverJewelry
+            {
+                CategoryId = silverJewelry.CategoryId,
+                MetalWeight = silverJewelry.MetalWeight,
+                Price = silverJewelry.Price,
+                ProductionYear = silverJewelry.ProductionYear,
+                SilverJewelryDescription = silverJewelry.SilverJewelryDescription,
+                SilverJewelryId = id,
+                SilverJewelryName = silverJewelry.SilverJewelryName,
+                CreatedDate = silverJewelry.CreatedDate,
+            });
     }
 }

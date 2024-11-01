@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SilverPE_API.Middleware;
 using SilverPE_BOs.Models;
 using SilverPE_Repository;
 using SilverPE_Repository.Interfaces;
@@ -105,7 +106,7 @@ new TokenRepository(secretKey, issuer, audience, durationInMinutes));
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseMiddleware<GlobalMiddlewareException>();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
             app.UseAuthentication();

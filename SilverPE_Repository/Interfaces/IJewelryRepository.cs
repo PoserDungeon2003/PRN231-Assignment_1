@@ -13,7 +13,8 @@ namespace SilverPE_Repository.Interfaces
     {
         public Task<List<SilverJewelryDTO>> GetJewelries();
         public Task<bool> AddJewelry(CreateSilverJewerlryRequest silverJewelry);
-        public Task<bool> UpdateJewelry(SilverJewelry silverJewelry);
+        public Task<bool> UpdateJewelry(string id, UpdateSilverJewerlyRequest silverJewelry);
         public Task<bool> DeleteJewelry(string id);
+        public Task<List<SilverJewelryDTO>> SearchByNameOrWeight(string searchValue);
     }
 }

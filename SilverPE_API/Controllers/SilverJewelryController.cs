@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using SilverPE_Repository.Interfaces;
 using SilverPE_Repository.Request;
@@ -21,21 +22,28 @@ namespace SilverPE_API.Controllers
         // GET: api/<SilverJewelryController>
         [EnableQuery]
         [HttpGet]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> GetAllJewerly()
         {
             var response = await _jewelryRepository.GetJewelries();
             return Ok(response);
         }
 
-        // GET api/<SilverJewelryController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("search")]
+        [Authorize(Roles = "1, 2")]
+        public async Task<IActionResult> SearchByNameOrWeight([FromQuery] string? searchValue)
         {
-            return "value";
+            var response = await _jewelryRepository.SearchByNameOrWeight(searchValue ?? "");
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
         }
 
         // POST api/<SilverJewelryController>
         [HttpPost]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> CreateSilverJewerlry([FromBody] CreateSilverJewerlryRequest body)
         {
             var response = await _jewelryRepository.AddJewelry(body);
@@ -54,16 +62,45 @@ namespace SilverPE_API.Controllers
             });
         }
 
-        // PUT api/<SilverJewelryController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> UpdateSilverJewerlyById(string id, [FromBody] UpdateSilverJewerlyRequest value)
         {
+            var response = await _jewelryRepository.UpdateJewelry(id, value);
+
+            if (response)
+            {
+                return Ok(new
+                {
+                    Success = response,
+                });
+            }
+
+            return BadRequest(new
+            {
+                Success = response,
+                Message = "Failed to update jewelry",
+            });
         }
 
-        // DELETE api/<SilverJewelryController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> DeleteSilverJewerlyById(string id)
         {
+            var response = await _jewelryRepository.DeleteJewelry(id);
+
+            if (response)
+            {
+                return Ok(new
+                {
+                    Success = response,
+                });
+            }
+            return BadRequest(new
+            {
+                Success = response,
+                Message = "Failed to delete jewelry",
+            });
         }
     }
 }

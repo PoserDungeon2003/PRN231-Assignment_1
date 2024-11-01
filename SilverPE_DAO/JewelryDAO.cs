@@ -93,6 +93,7 @@ namespace SilverPE_DAO
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
             }
@@ -122,5 +123,18 @@ namespace SilverPE_DAO
 
         private async Task<SilverJewelry> GetSilverJewerly(string jewelryId)
             => await _context.SilverJewelries.FirstOrDefaultAsync(s => s.SilverJewelryId.Equals(jewelryId));
+
+        public async Task<List<SilverJewelryDTO>> SearchByNameOrWeight(string searchValue)
+            => await _context.SilverJewelries.Where(s => s.SilverJewelryName.ToLower().Contains(searchValue.ToLower()) || s.MetalWeight.ToString().Contains(searchValue.ToLower())).Select(s => new SilverJewelryDTO
+            {
+                SilverJewelryId = s.SilverJewelryId,
+                SilverJewelryName = s.SilverJewelryName,
+                SilverJewelryDescription = s.SilverJewelryDescription,
+                MetalWeight = s.MetalWeight,
+                Price = s.Price,
+                ProductionYear = s.ProductionYear,
+                CreatedDate = s.CreatedDate,
+                CategoryId = s.CategoryId
+            }).ToListAsync();
     }
 }
