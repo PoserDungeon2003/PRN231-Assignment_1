@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using SilverPE_BOs.Models;
 
 namespace SilverPE_RazorPage.Pages.SilverPage
@@ -26,7 +27,7 @@ namespace SilverPE_RazorPage.Pages.SilverPage
             var token = HttpContext.Session.GetString("token");
             if (string.IsNullOrEmpty(token))
             {
-                return RedirectToPage("/login/index");
+                return RedirectToPage("/logout/index");
             }
 
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -35,7 +36,7 @@ namespace SilverPE_RazorPage.Pages.SilverPage
 
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                return RedirectToPage("/login/index");
+                return RedirectToPage("/logout/index");
             }
             else if (response.IsSuccessStatusCode)
             {
@@ -45,9 +46,13 @@ namespace SilverPE_RazorPage.Pages.SilverPage
                     PropertyNameCaseInsensitive = true
                 }) ?? new List<SilverJewelry>();
             }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            {
+                ModelState.AddModelError(string.Empty, "You are not allowed to access this function!");
+            }
             else
             {
-                ModelState.AddModelError(string.Empty, "Error fetching data from API.");
+                ModelState.AddModelError(string.Empty, $"Error: {response.ReasonPhrase}");
             }
             return Page();
         }

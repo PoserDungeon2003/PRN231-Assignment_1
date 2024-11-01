@@ -9,6 +9,7 @@
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddHttpClient();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddSession(options =>
             {

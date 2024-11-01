@@ -32,7 +32,7 @@ namespace SilverPE_RazorPage.Pages.SilverPage
             var token = HttpContext.Session.GetString("token");
             if (string.IsNullOrEmpty(token))
             {
-                return RedirectToPage("/login/index");
+                return RedirectToPage("/logout/index");
             }
 
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -41,7 +41,7 @@ namespace SilverPE_RazorPage.Pages.SilverPage
 
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                return RedirectToPage("/login/index");
+                return RedirectToPage("/logout/index");
             }
             else if (response.IsSuccessStatusCode)
             {

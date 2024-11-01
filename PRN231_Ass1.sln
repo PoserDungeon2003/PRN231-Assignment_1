@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilverPE_Repository", "Silv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilverPE_API", "SilverPE_API\SilverPE_API.csproj", "{EEA990C7-7F93-4BD4-80EC-42907F9A2386}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilverPE_RazorPage", "SilverPE_RazorPage\SilverPE_RazorPage.csproj", "{4C999A2A-603F-4825-8898-21B4C4836D55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilverPE_RazorPage", "SilverPE_RazorPage\SilverPE_RazorPage.csproj", "{4C999A2A-603F-4825-8898-21B4C4836D55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

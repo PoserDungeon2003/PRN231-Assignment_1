@@ -20,8 +20,6 @@ namespace SilverPE_RazorPage.Pages.Login
         [BindProperty]
         public LoginModel LoginModel { get; set; } = new LoginModel();
 
-        public string Message { get; set; }
-
         public IndexModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -57,6 +55,12 @@ namespace SilverPE_RazorPage.Pages.Login
                     PropertyNameCaseInsensitive = true
                 });
 
+                if (loginResponse.Role != 1 && loginResponse.Role != 2)
+                {
+                    ModelState.AddModelError(string.Empty, "You are not allowed to access this function!");
+                    return Page();
+                }
+
                 HttpContext.Session.SetString("token", loginResponse.Token);
                 HttpContext.Session.SetString("id", loginResponse.Id.ToString());
 
@@ -65,7 +69,6 @@ namespace SilverPE_RazorPage.Pages.Login
             else
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                Message = "You are not allowed to access this function!";
                 return Page();
             }
         }

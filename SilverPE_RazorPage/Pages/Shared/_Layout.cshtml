@@ -25,12 +25,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/login/index">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/silverpage/index">Silver Page</a>
-                        </li>
+                        @{
+                            var userId = Context.Session.GetString("id");
+                        }
+
+                        @if (!string.IsNullOrEmpty(userId))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/silverpage/index">Silver Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/logout/index">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/login/index">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
